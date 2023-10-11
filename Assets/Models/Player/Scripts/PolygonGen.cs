@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 using TMPro;
-
+//need a way to convert between real coords and relative coords
 
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class CustomPolygon : MonoBehaviour
 {
     [SerializeField] private List<double[]> trail;
+    [SerializeField] private TrailRenderer myTrail;
+    [SerializeField] private GameObject myLocation;
     private void Start()
     {
         CreateTriangle();
@@ -20,7 +22,11 @@ public class CustomPolygon : MonoBehaviour
 
     public void Update()
     {
-
+        if (myTrail.enabled) {
+            Vector3 position = myLocation.transform.position;
+            //y is vertical
+            trail.Add(new double[] { position.x, position.z });
+        }
     }
     public void clearTheTrail() {
         trail = new List<double[]>();
