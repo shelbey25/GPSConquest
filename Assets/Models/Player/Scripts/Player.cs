@@ -11,14 +11,34 @@ public class GameRoom
     public int localLobby;
     public int lobbyID;
     public static int globalLobbyCount = 0;
-    public Vector3[] allVertices;
+    public List<Vector3> allVertices;
     public List<int[]> allTriangles;
+    public List<Player> players;
 
     public GameRoom(int localLobbyParam) {
         localLobby = localLobbyParam;
         lobbyID = globalLobbyCount;
         globalLobbyCount = globalLobbyCount + 1;
 
+
+
+        allVertices = new List<Vector3>
+        {
+            new Vector3(50, 1, -50), // Bottom-right
+            new Vector3(-50, 1, -50), // Bottom-left
+            new Vector3(-50, 1, 50),  // Top-left
+            new Vector3(50, 1, 50),    
+            new Vector3(20, 1, 20) 
+        };
+         allTriangles = new List<int[]> {new int[] { 0, 1, 2, 2, 4, 0 }, new int[] { 2, 3, 4, 4, 3, 0 }};
+    }
+
+    public void addTriangleToMe(float[] a, float[] b, float[] c) {
+        int lengthVert = allVertices.Count;
+        
+        allVertices.Add(new Vector3(a[0], 1, a[1]));
+        allVertices.Add(new Vector3(b[0], 1, b[1]));
+        allVertices.Add(new Vector3(c[0], 1, c[1]));
     }
 }
 

@@ -19,6 +19,8 @@ public class CustomPolygon : MonoBehaviour
     private void Start()
     {
         myGame = new GameRoom(0);
+        Debug.Log("ID: ");
+        Debug.Log(myGame.lobbyID);
         CreateTriangle();
         trail = new List<double[]>();
     }
@@ -99,22 +101,7 @@ mesh.subMeshCount = 2;
     }
     public void CreateTriangle()
     {
-       
-        Vector3[] vertices = new Vector3[]
-        {
-            new Vector3(50, 1, -50), // Bottom-right
-    new Vector3(-50, 1, -50), // Bottom-left
-    new Vector3(-50, 1, 50),  // Top-left
-    new Vector3(50, 1, 50),    // Top-right
-    new Vector3(20, 1, 20) 
-        };
-
-
-// First triangle (red)
-    int[] trianglesRed = new int[] { 0, 1, 2, 2, 4, 0 };
-        int[] trianglesBlue = new int[] { 2, 3, 4, 4, 3, 0 };
-    List<int[]> triangles = new List<int[]> {trianglesRed, trianglesBlue};
-    renderMesh(vertices, triangles);
+      renderMesh(myGame.allVertices.ToArray(), myGame.allTriangles);
 
     }
 
