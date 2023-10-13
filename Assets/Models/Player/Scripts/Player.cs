@@ -11,13 +11,17 @@ public class GameRoom
     public int localLobby;
     public int lobbyID;
     public static int globalLobbyCount = 0;
+    public Vector3[] allVertices;
+    public List<int[]> allTriangles;
 
     public GameRoom(int localLobbyParam) {
         localLobby = localLobbyParam;
         lobbyID = globalLobbyCount;
         globalLobbyCount = globalLobbyCount + 1;
+
     }
 }
+
 
 public class Player : MonoBehaviour
 {
