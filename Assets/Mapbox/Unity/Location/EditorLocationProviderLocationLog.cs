@@ -24,6 +24,7 @@
 		/// </summary>
 		[SerializeField]
 		private TextAsset _locationLogFile;
+		private int posTemp = 0;
 
 
 		private LocationLogReader _logReader;
@@ -60,8 +61,30 @@
 			if (null == _locationEnumerator) { return; }
 
 			// no need to check if 'MoveNext()' returns false as LocationLogReader loops through log file
+			if (posTemp == 0) {
 			_locationEnumerator.MoveNext();
 			_currentLocation = _locationEnumerator.Current;
+			posTemp = posTemp + 1;
+			} else {
+			float step = 0.0001f;
+	
+			
+			 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+    {
+        _currentLocation.LatitudeLongitude.x += step;  // Increase latitude
+    }
+    if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+    {
+        _currentLocation.LatitudeLongitude.x -= step;  // Decrease latitude
+    }
+    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+    {
+        _currentLocation.LatitudeLongitude.y -= step;  // Decrease longitude
+    }
+    if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+    {
+        _currentLocation.LatitudeLongitude.y += step;  // Increase longitude
+    }}
 		}
 	}
 }
