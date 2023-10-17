@@ -30,7 +30,7 @@ public class GameRoom
             new Vector3(50, 1, 50),    
             new Vector3(20, 1, 20) 
         };
-         allTriangles = new List<int[]> {new int[] { 0, 1, 2, 2, 4, 0 }, new int[] { 2, 3, 4, 4, 3, 0 }};
+         allTriangles = new List<int[]> {/*new int[] { 0, 1, 2, 2, 4, 0 }, */new int[] { 2, 3, 4, 4, 3, 0 }};
     }
 
     public void addTriangleToMe(float[] a, float[] b, float[] c) {
@@ -39,6 +39,25 @@ public class GameRoom
         allVertices.Add(new Vector3(a[0], 1, a[1]));
         allVertices.Add(new Vector3(b[0], 1, b[1]));
         allVertices.Add(new Vector3(c[0], 1, c[1]));
+
+
+        int[] tempArr = new int[allTriangles[0].Length+3];
+        for (int i = 0; i < tempArr.Length; i++) {
+            if (i < allTriangles[0].Length) {
+                tempArr[i] = allTriangles[0][i];
+            } else {
+                if (i == allTriangles[0].Length) {
+                    tempArr[i] = lengthVert;
+                }
+                if (i == allTriangles[0].Length+1) {
+                    tempArr[i] = lengthVert+1;
+                }
+                if (i == allTriangles[0].Length+2) {
+                    tempArr[i] = lengthVert+2;
+                }
+            }
+        }
+        allTriangles[0] = tempArr;
     }
 }
 
