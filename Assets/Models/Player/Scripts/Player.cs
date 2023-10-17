@@ -14,6 +14,7 @@ public class GameRoom
     public List<Vector3> allVertices;
     public List<int[]> allTriangles;
     public List<Player> players;
+    public List<Material> materialsUsed;
 
     public GameRoom(int localLobbyParam) {
         localLobby = localLobbyParam;
@@ -21,6 +22,7 @@ public class GameRoom
         globalLobbyCount = globalLobbyCount + 1;
 
 
+        
 
         allVertices = new List<Vector3>
         {
@@ -31,7 +33,24 @@ public class GameRoom
             new Vector3(20, 1, 20) 
         };
          allTriangles = new List<int[]> {/*new int[] { 0, 1, 2, 2, 4, 0 }, */new int[] { 2, 3, 4, 4, 3, 0 }};
+            
+        materialsUsed = new List<Material>();
+        for (int i = 0; i < allTriangles.Count; i++) {
+            Material coloredMaterial = new Material(Shader.Find("Standard"));
+            coloredMaterial.color = RandomColor();
+            materialsUsed.Add(coloredMaterial);
+        }
     }
+
+      public static Color RandomColor()
+{
+    System.Random randNumGen = new System.Random();
+    int r = randNumGen.Next(0, 256);
+    int g = randNumGen.Next(0, 256);
+    int b = randNumGen.Next(0, 256);
+    return new Color32((byte)r, (byte)g, (byte)b, 255); 
+}
+
 
     public void addTriangleToMe(float[] a, float[] b, float[] c) {
         int lengthVert = allVertices.Count;
