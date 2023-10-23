@@ -11,10 +11,16 @@ private void Start()
     }
     public void ZoomOut()
     {
-        _camera.fieldOfView = defaultFOV+5.0f;  
+        if (defaultFOV < 120) {
+        defaultFOV = defaultFOV + 5;
+        }
+        _camera.fieldOfView = defaultFOV;  
     }
     public void ZoomIn()
     {
-        _camera.fieldOfView = defaultFOV-5.0f; 
+        if (defaultFOV > 20) {
+        defaultFOV = defaultFOV - 5;
+        }
+        _camera.fieldOfView = defaultFOV; 
     }
 }
