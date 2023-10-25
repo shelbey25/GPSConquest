@@ -30,9 +30,12 @@ public class GameRoom
             new Vector3(-50, 1, -50), // Bottom-left
             new Vector3(-50, 1, 50),  // Top-left
             new Vector3(50, 1, 50),    
-            new Vector3(20, 1, 20) 
+            new Vector3(20, 1, 20), // Bottom-left
+            new Vector3(-50, 1, -50),  // Top-left
+            new Vector3(-50, 1, -20),
+            new Vector3(-40, 1, -20)
         };
-         allTriangles = new List<int[]> {/*new int[] { 0, 1, 2, 2, 4, 0 }, */new int[] { 2, 3, 4, 4, 3, 0 }};
+         allTriangles = new List<int[]> {new int[] { 5, 6, 7 }, new int[] { 2, 3, 4, 4, 3, 0 }};
             
         materialsUsed = new List<Material>();
         for (int i = 0; i < allTriangles.Count; i++) {
@@ -52,12 +55,36 @@ public class GameRoom
 }
 
 
+    private float[] calcCentroid(List<float[]> vertices) {
+        float centerCoordX = 0.0f;
+        float centerCoordY = 0.0f;
+        for (int i = 0; i < vertices.Count; i++) {
+            centerCoordX = centerCoordX + vertices[i][0];
+            centerCoordY = centerCoordY + vertices[i][1];
+        }
+        return new float[] {centerCoordX/vertices.Count, centerCoordY/vertices.Count};
+    }
+
+    private List<float[]> orderClockwise(List<float[]> vertices) {
+        float[] center = calcCentroid(vertices);
+        vertices.Sort((v2, v1) =>
+        {
+            float angle1 = Mathf.Atan2(v1[1] - center[1], v1[0] - center[0]); //GPT
+            float angle2 = Mathf.Atan2(v2[1] - center[1], v2[0] - center[0]); //GPT
+            return angle1.CompareTo(angle2); //GPT
+        });
+        return vertices;
+    }
+
     public void addTriangleToMe(float[] a, float[] b, float[] c) {
         int lengthVert = allVertices.Count;
-        
-        allVertices.Add(new Vector3(a[0], 1, a[1]));
-        allVertices.Add(new Vector3(b[0], 1, b[1]));
-        allVertices.Add(new Vector3(c[0], 1, c[1]));
+        //Only ceratin movement patterns work, why?
+
+        List<float[]> myVertices = orderClockwise(new List<float[]> {a, b, c});
+
+        allVertices.Add(new Vector3(myVertices[0][0], 1, myVertices[0][1]));
+        allVertices.Add(new Vector3(myVertices[1][0], 1, myVertices[1][1]));
+        allVertices.Add(new Vector3(myVertices[2][0], 1, myVertices[2][1]));
 
 
         int[] tempArr = new int[allTriangles[0].Length+3];

@@ -79,8 +79,5 @@ public class CustomPolygon : MonoBehaviour
         meshRenderer.materials = materialsUsed.ToArray();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log($"Collided with: {collision.gameObject.name}");
-    }
+   
 }
