@@ -13,6 +13,7 @@ using TMPro;
 public class CustomPolygon : MonoBehaviour
 {
     [SerializeField] private List<double[]> trail;
+    [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private TrailRenderer myTrail;
     [SerializeField] private GameObject myLocation;
     private GameRoom myGame;
@@ -77,6 +78,7 @@ public class CustomPolygon : MonoBehaviour
         // Assign mesh to MeshFilter and materials to MeshRenderer
         meshFilter.mesh = mesh;
         meshRenderer.materials = materialsUsed.ToArray();
+        meshCollider.sharedMesh = mesh;
     }
 
    

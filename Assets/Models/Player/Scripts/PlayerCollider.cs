@@ -1,22 +1,23 @@
  using UnityEngine;
 
-public class CollisionDetection : MonoBehaviour
+public class PlayerCollider : MonoBehaviour
 {
 
-    void OnTriggerEnter(Collider objectName)
-    {
-        Debug.Log("Entered collision with " + objectName.gameObject.name);
+    [SerializeField] private TrailRenderer myTrail;
+    void Start() {
+        Debug.Log("HI");
     }
 
-    // Gets called during the stay of object inside the collider area
-    void OnTriggerStay(Collider objectName)
+    void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Colliding with " + objectName.gameObject.name);
+        myTrail.Clear();
+        myTrail.enabled = false;
     }
 
-    // Gets called when the object exits the collider area
-    void OnTriggerExit(Collider objectName)
+
+    void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exited collision with " + objectName.gameObject.name);
+        myTrail.Clear();
+        myTrail.enabled = true;
     }
 }
