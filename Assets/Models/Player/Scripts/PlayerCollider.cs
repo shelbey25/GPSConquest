@@ -11,6 +11,7 @@ public class PlayerCollider : MonoBehaviour
     [SerializeField] private TrailRenderer myTrail;
     private GameRoom myGame;
     [SerializeField] private GameObject myPin;
+    private Vector3 savedCoords;
     
     public void SetGameRoom(GameRoom room)
     {
@@ -19,6 +20,10 @@ public class PlayerCollider : MonoBehaviour
 
     void Start() {
         Debug.Log("HI");
+    }
+
+    void Update() {
+        savedCoords = myPin.transform.position;
     }
 
     //CHATGPT
@@ -45,7 +50,7 @@ public class PlayerCollider : MonoBehaviour
     return (u >= 0) && (v >= 0) && (u + v <= 1);
 }
 
-private int checker(Collider other) {
+private int checker(Collider other, bool typeOfOpp) {
     int checker = -1;
 
     if ((other.GetType() == typeof(MeshCollider)) && (myGame != null)) {
@@ -54,6 +59,11 @@ private int checker(Collider other) {
         List<int[]> tris = myGame.allTriangles;
         List<Vector3> verts = myGame.allVertices;
         Vector3 positionVec = myPin.transform.position;
+        if (typeOfOpp) {
+            positionVec = myPin.transform.position;
+        } else {
+            positionVec = savedCoords;
+        }
         for (int i = 0; i < tris.Count; i++) {
             for (int z = 0; z < tris[i].Length; z = z + 3) {
             if (IsPointInTriangle(new Vector3(positionVec.x, 0, positionVec.z), new Vector3(verts[tris[i][z]].x, 0, verts[tris[i][z]].z), new Vector3(verts[tris[i][z+1]].x, 0, verts[tris[i][z+1]].z), new Vector3(verts[tris[i][z+2]].x, 0, verts[tris[i][z+2]].z))) {
@@ -77,7 +87,7 @@ private int checker(Collider other) {
         //Debug.Log(other.material.color);
         
 
-        if (checker(other) == 0) {
+        if (checker(other, true) == 0) {
         myTrail.Clear();
         myTrail.enabled = false;
         }
@@ -87,8 +97,8 @@ private int checker(Collider other) {
     void OnTriggerExit(Collider other)
     {
         //NEED TO STORE PREVIOUS POSITION AS WORKS AFTER OUT
-        Debug.Log(checker(other));
-        if (checker(other) == 0) {
+        Debug.Log(checker(other, false));
+        if (checker(other, false) == 0) {
         myTrail.Clear();
         myTrail.enabled = true;
         }
