@@ -17,12 +17,19 @@ public class CustomPolygon : MonoBehaviour
     [SerializeField] private TrailRenderer myTrail;
     [SerializeField] private GameObject myLocation;
     private GameRoom myGame;
+    [SerializeField] private PlayerCollider myPlayerCollider;
     private void Start()
     {
         myGame = new GameRoom(0);
+        myPlayerCollider.SetGameRoom(myGame);
         Debug.Log("ID: ");
         Debug.Log(myGame.lobbyID);
         CreateTriangle();
+        Vector3 positionVec = myLocation.transform.position;
+        myGame.addTriangleToMe(new float[] { positionVec.x+5, positionVec.z-5}, new float[] { positionVec.x+5, positionVec.z+5}, new float[] { positionVec.x-5, positionVec.z+5});
+        renderMesh(myGame.allVertices.ToArray(), myGame.allTriangles);
+        myGame.addTriangleToMe(new float[] { positionVec.x+5, positionVec.z-5}, new float[] { positionVec.x-5, positionVec.z-5}, new float[] { positionVec.x-5, positionVec.z+5});
+        renderMesh(myGame.allVertices.ToArray(), myGame.allTriangles);
         trail = new List<double[]>();
     }
 

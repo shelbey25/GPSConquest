@@ -2318,6 +2318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTrail: {fileID: 402331882}
+  myPin: {fileID: 399220705}
 --- !u!54 &399220711
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4361,6 +4362,7 @@ MonoBehaviour:
   meshCollider: {fileID: 921131150}
   myTrail: {fileID: 402331882}
   myLocation: {fileID: 582899828}
+  myPlayerCollider: {fileID: 399220710}
 --- !u!23 &921131148
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7466,6 +7468,7 @@ MonoBehaviour:
   gameRoom2: {fileID: 1856150349}
   gameRoom3: {fileID: 709905106}
   menu: {fileID: 1827901921}
+  myPin: {fileID: 0}
   inputField: {fileID: 709946868}
 --- !u!1 &1839600635
 GameObject:

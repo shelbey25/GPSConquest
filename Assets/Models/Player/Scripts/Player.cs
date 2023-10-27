@@ -35,7 +35,7 @@ public class GameRoom
             new Vector3(-50, 1, -20),
             new Vector3(-40, 1, -20)
         };
-         allTriangles = new List<int[]> {new int[] { 5, 6, 7 }, new int[] { 2, 3, 4, 4, 3, 0 }};
+         allTriangles = new List<int[]> {new int[] {  }, new int[] { 2, 3, 4, 4, 3, 0 }};
             
         materialsUsed = new List<Material>();
         for (int i = 0; i < allTriangles.Count; i++) {
@@ -123,6 +123,7 @@ public class Player : MonoBehaviour
 [SerializeField] private GameObject gameRoom2;
 [SerializeField] private GameObject gameRoom3;
 [SerializeField] private GameObject menu;
+[SerializeField] private GameObject myPin;
 private int gameRoomCount = 1;
 private GameRoom activeGame;
 [SerializeField] public TMP_InputField inputField;
@@ -141,6 +142,10 @@ private List<GameRoom> myGames = new List<GameRoom>();
         gameRoom1.SetActive((myGames.Count >= 1));
         gameRoom2.SetActive((myGames.Count >= 2));
         gameRoom3.SetActive((myGames.Count >= 3));
+
+
+        //Vector3 positionVec = myPin.transform.position;
+
     }
 
     public void Update() {
